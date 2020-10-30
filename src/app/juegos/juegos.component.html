@@ -1,0 +1,50 @@
+<!--- 
+<div *ngIf="!juegos" class="alert alert-danger">
+    Error al consultar los juegos
+</div> 
+-->
+<div *ngIf="juegos?.length == 0" class="alert alert-info">
+  No hay juegos
+</div>
+
+<div class="my-5 pr-4 text-right">
+  <button class="btn btn-primary" type="button" routerLink="/juegos/form">Crear Juego</button>
+</div>
+
+<div *ngIf="juegos?.length > 0" class="card border-primary mb-3">
+  <div class="card-header">Juegos
+    <button type="button" class="btn btn-primary float-right" (click)="switchId()">{{ showID ? 'Ocultar' : 'Mostrar' }}
+      ID</button>
+  </div>
+  <div class="card-body text-primary">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <th *ngIf="showID">ID</th>
+        <th>Titulo</th>
+        <th>Fecha Lanzamiento</th>
+        <th>Precio</th>
+        <th>PEGI</th>
+        <th>Categoria</th>
+        <th>Compañias</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let juego of juegos">
+          <td *ngIf="showID">{{juego.idJuego}}</td>
+          <td>{{juego.titulo}}</td>
+          <td>{{juego.fechaLanzamiento | date: "dd/MM/yyyy"}}</td>
+          <td>{{juego.precio}}</td>
+          <td>{{juego.pegi}}</td>
+          <td>{{juego.categoria | uppercase}}</td>
+          <td><span
+              *ngFor="let company of juego.companies; index as i">{{ company.nombre }}{{(juego.companies.length > 1 && i < juego.companies.length - 1) ? ', ' : ''}}</span>
+          </td>
+          <td>
+            <button type="button" [routerLink]="['form', juego.idJuego]" class="btn btn-primary btn-sm">Editar</button>
+            <button type="button" (click)='delete(juego)' class="btn btn-danger btn-sm ml-2">Borrar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div *ngIf="companies?.length == 0" class="alert alert-info">
+    No hay compañias
+</div>
+
+<div *ngIf="companies?.length > 0" class="card border-primary mb-3">
+    <div class="card-header">Compañias
+        <button type="button" class="btn btn-primary float-right" (click)="switchId()">{{ showID ? 'Ocultar' : 'Mostrar' }} ID</button>
+    </div>
+    <div class="card-body text-primary">
+      <table class="table table-bordered table-striped">
+          <thead>
+              <th *ngIf="showID" >ID</th>
+              <th>Nombre</th>
+              <th>CIF</th>
+              <th>Juegos</th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let company of companies">
+                  <td *ngIf="showID">{{company.idCompany}}</td>
+                  <td>{{company.nombre}}</td>
+                  <td>{{company.cif}}</td>
+                  <td><span *ngFor="let juego of company.juegos; index as i">{{ juego.titulo }}{{(company.juegos.length > 1 && i < company.juegos.length - 1) ? ', ' : ''}} </span></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
